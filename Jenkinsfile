@@ -7,6 +7,9 @@ pipeline {
     }
     stages {
         stage('Run schemachange') {
+            environment {
+                  HOME="."
+            }
             steps {
                 sh "pip install schemachange --upgrade"
                 sh "schemachange -f migrations -a ${SF_ACCOUNT} -u ${SF_USERNAME} -r ${SF_ROLE} -w ${SF_WAREHOUSE} -d ${SF_DATABASE} -c ${SF_DATABASE}.RAWSTAGE.CHANGE_HISTORY --create-change-history-table"
